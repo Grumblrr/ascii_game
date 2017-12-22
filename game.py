@@ -15,20 +15,6 @@ import random
 
 #classes
 
-
-class Unit():
-    def __init__(self, char, location, attackpower=1, health=1, leap=1, turncount=1):
-        self.char = char
-        self.location=location
-        self.ap = attackpower #damage done per blow
-        self.hp = health #total health
-        self.leap= leap #amount of tiles this can move per turn
-        self.turncount = turncount #constant to reset self.counter to
-        self.counter = self.turncount #counter till next time this unit takes a turn
-
-    def __str__(self):
-        return self.char
-
 class Game():
     def __init__(self, rc=18, fc=3, sc=2, ac=1, spacemult = 4): #likelihood for certain chars stored in self.mpc
         self.mpc = [' ' for i in range((rc+fc+sc+ac)* 4)]
@@ -149,15 +135,20 @@ class Game():
             self.pl[0] += move[0]
             self.pl[1] += move[1]
     #move the player, theres also some error detection that we probably dont need
+#the entire game. generates map
+
+class Player():
+    def __init__(self, location, ap=1, health=10, self.carryweight=10):
+        self.location = location #where the player is
+        self.ap = ap #how much damage the player deals
+        self.hp = health #total player health
+        self.inv = [] #stores Entity objects, which are items/weapons/etc
+        self.clothing = [] #what the player is wearing for armor, clothes, etc
+        self.holding = [] #what the player is holding, e.g. weapon, food, tool
+        self.carryweight = carryweight #total weight the player can carry
+
+    def move(self, direction):
+        
 
 
-
-#unit tests. theyre a blast
-
-gm = Game()
-gm.genMap(1000, 1000)
-
-gm.printPlayerView(10)
-gm.pl[0] += 10
-gm.pl[1] += 10
-gm.printPlayerView(10)
+#unit tests
