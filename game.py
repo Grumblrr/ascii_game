@@ -32,7 +32,7 @@ class Game():
 
     def genMap(self, xsize=20, ysize=20):
         self.mapls = [[random.choice(self.mpc) for i in range(ysize)] for i in range(xsize)] #generate map grid
-        self.dloc = [random.randint(0, xsize) for i in range(2)] #door location
+        self.dloc = [random.randint(0, xsize-1) for i in range(2)] #door location
         self.mapls[self.dloc[0]][self.dloc[1]] = '@' #put the door on the map
         self.units = [] #unit list
         self.floor = 1 #floor count,1 is first, 2 is second, etc
@@ -138,7 +138,7 @@ class Game():
 #the entire game. generates map
 
 class Player():
-    def __init__(self, location, ap=1, health=10, self.carryweight=10):
+    def __init__(self, location, ap=1, health=10, carryweight=10):
         self.location = location #where the player is
         self.ap = ap #how much damage the player deals
         self.hp = health #total player health
@@ -148,7 +148,11 @@ class Player():
         self.carryweight = carryweight #total weight the player can carry
 
     def move(self, direction):
-        
+        pass
 
 
 #unit tests
+
+gm = Game()
+gm.genMap()
+gm.printPlayerView(5)
