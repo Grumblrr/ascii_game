@@ -137,7 +137,9 @@ class Game():
     #move the player, theres also some error detection that we probably dont need
 #the entire game. generates map
 
-class Player():
+
+
+class Enemy():
     def __init__(self, location, ap=1, health=10, carryweight=10):
         self.location = location #where the player is
         self.ap = ap #how much damage the player deals
