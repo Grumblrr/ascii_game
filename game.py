@@ -135,7 +135,7 @@ class Game():
             self.pl[0] += move[0]
             self.pl[1] += move[1]
     #move the player, theres also some error detection that we probably dont need
-#the entire game. generates map
+#the entire game. generates map, tries 
 
 
 

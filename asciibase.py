@@ -16,13 +16,13 @@ import random, pygame, sys
 #classes
 class Player():
     def __init__(self, ap=1, hp=10, carryweight=10, startlocation=[0, 0]):
-        self.ap = ap
-        self.hp = hp
-        self.carryweight = carryweight
-        self.inventory = []
-        self.clothing = []
-        self.holding = []
-        self.location = startlocation
+        self.ap = ap #attack power, or strength, or whatever
+        self.hp = hp #health points, self.explanatory
+        self.carryweight = carryweight #how many items you can carry
+        self.inventory = [] #inventory
+        self.clothing = [] #what are ya wearing(armor, rags, shoes)
+        self.holding = [] #what are ya holdin(weapon, tool, money)
+        self.location = startlocation #where do you start
     #pretty self-explanatory
 
     def move(self, direction):
