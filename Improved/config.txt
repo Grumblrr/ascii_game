@@ -1,0 +1,27 @@
+#      Configuration file
+
+
+#map outline characters
+
+corner: +
+side: |
+topside: -
+
+
+#environment characters
+
+walls: #
+rocks: 0
+
+
+#game options
+
+viewdist: 2
+sonardist: 5
+
+
+#bools
+
+enemies: True
+infinite: False
+buildingfile: buildings.txt
