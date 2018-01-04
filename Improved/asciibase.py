@@ -67,7 +67,10 @@ class Game():
 
     def setup(self):
         self.map.genMap()
-    #generate map
+        self.player.location = [random.randint(0, self.map.dimensions[0]-1), random.randint(0, self.map.dimensions[1]-1)]
+        while self.map.map[self.player.location[1]][self.player.location[0]] != ' ':
+            self.player.location = [random.randint(0, self.map.dimensions[0]-1), random.randint(0, self.map.dimensions[1]-1)]
+    #generate map, player location, etc.
 
     def movePlayer(self, xdiff, ydiff):
         #checks that path is clear, then moves player
@@ -178,13 +181,41 @@ class Map():
 
     def getMapRange(self, xmin, ymin, xmax, ymax):
         output = []
-        for ls_int in range(ymin, ymax, 1):
-            outstr=''
-            for char_int in range(xmin, xmax, 1):
-                outstr += self.map[ls_int][char_int] + ' '
-            output.append(outstr)
+        try:
+            for ls_int in range(ymin, ymax, 1):
+                outstr=' '
+                try:
+                    for char_int in range(xmin, xmax, 1):
+                        outstr += self.map[ls_int][char_int] + ' '
+                except:
+                    outstr += '#'
+                    continue
+                output.append(outstr)
+        except:
+            outstr += '#'
         return output
     #get range of values in map, e.g. if you want a specific area
+
+    def prettyMapRange(self, xmin, ymin, xmax, ymax):
+        maprange = self.getMapRange(xmin, ymin, xmax, ymax)
+        output = []
+        outstr = self.corner
+        for i in range(len(maprange[0])):
+            outstr += self.topside
+        output.append(outstr + self.corner)
+
+        for ls in maprange:
+            outstr = self.side
+            for char in ls:
+                outstr += char
+            output.append(outstr + self.side)
+
+        outstr = self.corner
+        for i in range(len(maprange[0])):
+            outstr += self.topside
+        output.append(outstr + self.corner)
+
+        return output
 #
 #
 
@@ -193,3 +224,5 @@ class Map():
 if __name__ == '__main__':
     gm = Game()
     gm.setup()
+    for ls in gm.map.getMapRange(5, 5, 21, 21):
+        print(ls)
