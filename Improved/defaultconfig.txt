@@ -18,9 +18,10 @@ charset: 00000000000000000000FQA
 
 viewdist: 2
 sonardist: 5
+amountSonarPer: 10
 mapx: 20
 mapy: 20
-
+startingcoins = 10
 
 #bools
 

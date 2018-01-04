@@ -25,7 +25,6 @@ def getConfig(configfile='config.txt', debug=False):
         config.close
         del config
         config = open(__file__[:0-len(name)]+configfile, 'r')
-
     configdict = {}
 
     for ln in config:
@@ -51,27 +50,49 @@ def getConfig(configfile='config.txt', debug=False):
         print('\n')
 
     return configdict
-#
 # get the config file, and all related data contained within
-
 
 
 
 class Game():
     def __init__(self, config='config.txt'):
         self.config = getConfig(config, debug=False)
-        self.map = Map(self.config) #make the map based on the config file
-        self.player = Player(self.config) #make player based on config
-    #
+        try:
+            self.map = Map(self.config) #make the map based on the config file
+            self.player = Player(self.config) #make player based on config
+        except:
+            raise ValueError('Incompatible config file.')
+        #
+    #make map and player objects, grab config
 
     def setup(self):
         self.map.genMap()
-    #
+    #generate map
 
     def movePlayer(self, xdiff, ydiff):
         #checks that path is clear, then moves player
-        pass
-    #
+        pl = self.player.location
+        pl[0] += xdiff
+        pl[1] += ydiff
+        try:
+            char = self.map.map[pl[1]][pl[0]]
+        except:
+            if not self.map.infinite:
+                char = '#'
+            else:
+                raise Exception('Infinite map generation not yet complete')
+        if char not in '0#':
+            self.player.move(xdiff, ydiff)
+        char = self.getCharBelowPlayer()
+        if char == 'Q':
+            self.player.inventory['sonar']+=self.player.sonarper
+        elif char == 'F':
+            self.player.inventory['food']+=1
+        elif char =='A':
+            self.player.stats['attackpower']+=1
+        elif char =='$':
+            self.player.inventory['coins']+=1
+    #check that player path is clear, then moves the player accordingly
 
     def printEntireMap(self):
         for ls in self.map.map:
@@ -97,8 +118,10 @@ class Player():
         self.location = [0, 0]
         self.viewdist = int(config['viewdist'])
         self.sonardist = int(config['sonardist'])
+        self.sonarper = int(config['amountSonarPer'])
         self.inventory = {'sonar': 0,
-                          'food': 0}
+                          'food': 0,
+                          'coins': int(config['startingcoins'])}
         self.stats = {'attackpower': 1,
                       'health': 10}
     #
